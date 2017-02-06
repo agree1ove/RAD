@@ -1,5 +1,6 @@
 #include <MemoryFree.h>
 #include <FreeRTOS_AVR.h>
+#include "OLEDManger.h"
 
 /* ******************************************
  * Global
@@ -7,6 +8,7 @@
 HardwareSerial* serial_monitor = &Serial;  // RxTx0
 unsigned int count = 0;
 
+OLEDManger *LEDManger;
 
 /* ******************************************
  * Task
