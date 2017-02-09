@@ -255,9 +255,9 @@ void DIsplayManger::drawSubMenupage_1() {
     u8g.setPrintPos(20, 20);
     u8g.print("...");
     u8g.setPrintPos(20, 30);
-    u8g.print(subIndex[0]);
+    u8g.print(subIndex[2]);
     u8g.setPrintPos(20, 40);
-    u8g.print(subIndex[1]);
+    u8g.print(subIndex[3]);
     u8g.drawBitmapP(0, 53, 16, 1, BITMAP_bar);
     u8g.drawStr(0, 56, "Main > Use");
   }
@@ -265,9 +265,9 @@ void DIsplayManger::drawSubMenupage_1() {
     u8g.setPrintPos(20, 20);
     u8g.print("...");
     u8g.setPrintPos(20, 30);
-    u8g.print(subIndex[2]);
+    u8g.print(subIndex[4]);
     u8g.setPrintPos(20, 40);
-    u8g.print(subIndex[3]);
+    u8g.print(subIndex[5]);
     u8g.drawBitmapP(0, 53, 16, 1, BITMAP_bar);
     u8g.drawStr(0, 56, "Main > Use");
 

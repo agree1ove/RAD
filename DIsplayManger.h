@@ -10,7 +10,7 @@ class DIsplayManger
     int mLineNumber;
     int pageNum = 1;
     int mainPoint = 20;
-    int subpoint = false;
+    int subpoint = 1;
     String strSettinginfo[4] = { "SEVER_IP : ", "User ID : ", "User_NUM", "RAD_Num : " };
     String subIndex[6] = {"SEVER MODE", "CLIENT MODE", "3G/4G MODE", "Change Rauderate", "GET RAD NUM", "RAD Rebooting"};
     //////////////////////////////////////String cutting
