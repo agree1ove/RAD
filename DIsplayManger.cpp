@@ -275,8 +275,9 @@ void DIsplayManger::drawSubMenupage_1() {
 }
 void DIsplayManger::drawSubMenupage_2() {
   u8g.drawBitmapP(12, mainPoint, 1, 7, BITMAP_tri);
-  u8g.drawStr(20, 20, "NewWork Info");
-  u8g.drawStr(20, 30, "Settting Info");
+  u8g.drawStr(20, 20, "...");
+  u8g.drawStr(20, 30, "NewWork Info");
+  u8g.drawStr(20, 40, "Settting Info");
   u8g.drawBitmapP(0, 53, 16, 1, BITMAP_bar);
   u8g.drawStr(0, 56, "Main > Info");
 }

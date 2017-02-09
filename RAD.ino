@@ -114,7 +114,7 @@ void t_display() {
     DisplayManger->checkPage();
     DisplayManger->checkPage();
 
-    
+
     xSemaphoreGive(semphr);
     vTaskSuspend(NULL);  //1회
   }
@@ -257,7 +257,7 @@ void upbtn() {
     case 5:
       DisplayManger->setMainpoint(DisplayManger->getMainpoint() + 10);
       delay(300);
-      if (DisplayManger->getMainpoint() > 30) {
+      if (DisplayManger->getMainpoint() > 40) {
         DisplayManger->setMainpoint(20);
       }
       break;
@@ -309,95 +309,98 @@ void downbtn() {
       DisplayManger->setMainpoint(DisplayManger->getMainpoint() - 10);
       delay(300);
       if (DisplayManger->getMainpoint() < 20) {
-        DisplayManger->setMainpoint(30);
+        DisplayManger->setMainpoint(40);
       }
       break;
   }
 }
-void clickbtn(){
-      switch (DisplayManger->getPagenum()) {
-      case 1:
-        switch (DisplayManger->getMainpoint()) {
-          case 20:
-            DisplayManger->setPagenum(2);
-            DisplayManger->setSubpoint(1);
+void clickbtn() {
+  switch (DisplayManger->getPagenum()) {
+    case 1:
+      switch (DisplayManger->getMainpoint()) {
+        case 20:
+          DisplayManger->setPagenum(2);
+          DisplayManger->setSubpoint(1);
 
-            break;
-          case 30:
-            DisplayManger->setPagenum(5);
+          break;
+        case 30:
+          DisplayManger->setPagenum(5);
 
-            break;
-          case 40:
-            DisplayManger->setPagenum(4);
+          break;
+        case 40:
+          DisplayManger->setPagenum(4);
 
-            break;
-        }
-        break;
-      case 2:
-        switch (DisplayManger->getMainpoint()) {
-          case 20:
+          break;
+      }
+      break;
+    case 2:
+      switch (DisplayManger->getMainpoint()) {
+        case 20:
+          DisplayManger->setPagenum(1);
+          break;
+        case 30:
+          if (DisplayManger->getSubpoint() == 1) { //서버모드
             DisplayManger->setPagenum(1);
-            break;
-          case 30:
-            if (DisplayManger->getSubpoint() == 1) { //서버모드
-              DisplayManger->setPagenum(1);
-            }
-            else if (DisplayManger->getSubpoint() == 2) { //3g/4g
-              DisplayManger->setPagenum(1);
-            }
-            else if (DisplayManger->getSubpoint() == 3) { //rad승인요청
-              DisplayManger->setPagenum(7);
-            }
-            break;
-          case 40:
-            if (DisplayManger->getSubpoint() == 1) { //클라이언트 모드
-              DisplayManger->setPagenum(1);
-            }
-            else if (DisplayManger->getSubpoint() == 2) { //rad 통신 속도 변경
-              DisplayManger->setPagenum(3);
-            }
-            else if (DisplayManger->getSubpoint() == 3) { //rad rebooting
-              DisplayManger->setPagenum(1);
-            }
-            break;
-        }
-        break;
-      case 3:
-        switch (DisplayManger->getMainpoint()) {
-          case 20:
-            //통신속도 9600k
+          }
+          else if (DisplayManger->getSubpoint() == 2) { //3g/4g
             DisplayManger->setPagenum(1);
-            break;
-          case 30:
-            //통신속도 38400k
-            DisplayManger->setPagenum(1);
-            break;
-          case 40:
-            //통신속도 152000k
-            DisplayManger->setPagenum(1);
-            break;
-        }
-        break;
-      case 4:
-             DisplayManger->setPagenum(1);
-        break;
-      case 5:
-        switch (DisplayManger->getMainpoint()) {
-          case 20:
-            DisplayManger->setPagenum(6);
-            break;
-          case 30:
+          }
+          else if (DisplayManger->getSubpoint() == 3) { //rad승인요청
             DisplayManger->setPagenum(7);
-            break;
-        }
-        break;
-      case 6:
-           DisplayManger->setPagenum(1);
-        break;
-      case 7:
-           DisplayManger->setPagenum(1);
-        break;
-    }
+          }
+          break;
+        case 40:
+          if (DisplayManger->getSubpoint() == 1) { //클라이언트 모드
+            DisplayManger->setPagenum(1);
+          }
+          else if (DisplayManger->getSubpoint() == 2) { //rad 통신 속도 변경
+            DisplayManger->setPagenum(3);
+          }
+          else if (DisplayManger->getSubpoint() == 3) { //rad rebooting
+            DisplayManger->setPagenum(1);
+          }
+          break;
+      }
+      break;
+    case 3:
+      switch (DisplayManger->getMainpoint()) {
+        case 20:
+          //통신속도 9600k
+          DisplayManger->setPagenum(1);
+          break;
+        case 30:
+          //통신속도 38400k
+          DisplayManger->setPagenum(1);
+          break;
+        case 40:
+          //통신속도 152000k
+          DisplayManger->setPagenum(1);
+          break;
+      }
+      break;
+    case 4:
+      DisplayManger->setPagenum(1);
+      break;
+    case 5:
+      switch (DisplayManger->getMainpoint()) {
+        case 20:
+          DisplayManger->setPagenum(1);
+          break;
+        case 30:
+          DisplayManger->setPagenum(6);
+          break;
+        case 40:
+          DisplayManger->setPagenum(7);
+          break;
+      }
+      break;
+    case 6:
+      DisplayManger->setPagenum(5);
+      break;
+    case 7:
+      DisplayManger->setPagenum(5);
+      break;
+  }
   DisplayManger->setMainpoint(20);
 }
 
