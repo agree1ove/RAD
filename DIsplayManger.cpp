@@ -1,64 +1,64 @@
-#include "OLEDManger.h"
-#include "OLED_bitmap.h"
+#include "DIsplayManger.h"
+#include "Display_bitmap.h"
 #include <U8glib.h>
 U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_DEV_0 | U8G_I2C_OPT_NO_ACK | U8G_I2C_OPT_FAST);
 
-OLEDManger::OLEDManger()
+DIsplayManger::DIsplayManger()
 {
 }
-void OLEDManger::logoPage() {
+void DIsplayManger::logoPage() {
   u8g.firstPage();
   do {
     u8g.drawBitmapP(0, 0, 16 , 64, BITMAP_LOGO);
   } while (u8g.nextPage());
 }
 
-void OLEDManger::clearPage() {
+void DIsplayManger::clearPage() {
   u8g.firstPage();
   do {
   } while (u8g.nextPage());
 }
 
-int OLEDManger::getMainpoint() {
+int DIsplayManger::getMainpoint() {
   return mainPoint;
 }
-void OLEDManger::setMainpoint(int mpoint) {
+void DIsplayManger::setMainpoint(int mpoint) {
   mainPoint = mpoint;
 }
-int OLEDManger::getPagenum() {
+int DIsplayManger::getPagenum() {
   return pageNum;
 }
-void OLEDManger::setPagenum(int npage) {
+void DIsplayManger::setPagenum(int npage) {
   pageNum = npage;
 }
-int OLEDManger::getSubpoint() {
+int DIsplayManger::getSubpoint() {
   return subpoint;
 }
-void OLEDManger::setSubpoint(int spoint) {
+void DIsplayManger::setSubpoint(int spoint) {
   subpoint = spoint;
 }
-int OLEDManger::getCirclecheck() {
+int DIsplayManger::getCirclecheck() {
   return circleCheck;
 }
-void OLEDManger::setShowline(int sline) {
+void DIsplayManger::setShowline(int sline) {
   showline = sline;
 }
-int OLEDManger::getShowline() {
+int DIsplayManger::getShowline() {
   return showline;
 }
-int OLEDManger::getEndline() {
+int DIsplayManger::getEndline() {
   return endline;
 }
-void OLEDManger::setLineupnum(int upnum) {
+void DIsplayManger::setLineupnum(int upnum) {
   lineupnum = upnum;
 }
-int OLEDManger::getLineupnum() {
+int DIsplayManger::getLineupnum() {
   return lineupnum;
 }
-int OLEDManger::getNumberOflines() {
+int DIsplayManger::getNumberOflines() {
   return numberOflines;
 }
-void OLEDManger::checkPage() {
+void DIsplayManger::checkPage() {
   if (pageNum == 4) {
     drawConsolepage();
   }
@@ -67,7 +67,7 @@ void OLEDManger::checkPage() {
   }
 }
 
-void OLEDManger::drawNotifacation() {
+void DIsplayManger::drawNotifacation() {
   //u8g.setFontPosTop();
   u8g.firstPage();
   do {
@@ -134,27 +134,27 @@ void OLEDManger::drawNotifacation() {
     }
   } while (u8g.nextPage());
 }
-void OLEDManger::setWifi(bool _wifi) {
+void DIsplayManger::setWifi(bool _wifi) {
   notiData.wifi = _wifi;
 }
-void OLEDManger::setCharing(bool _charge) {
+void DIsplayManger::setCharing(bool _charge) {
   notiData.charge = _charge;
 }
-void OLEDManger::setUser(bool _user) {
+void DIsplayManger::setUser(bool _user) {
   notiData.user = _user;
 }
-void OLEDManger::setServer(bool _server) {
+void DIsplayManger::setServer(bool _server) {
   notiData.server = _server;
 }
-void OLEDManger::setDevice(bool _device) {
+void DIsplayManger::setDevice(bool _device) {
   notiData.device = _device;
 }
-void OLEDManger::setBatterygauge(int _gauge) {
+void DIsplayManger::setBatterygauge(int _gauge) {
   notiData.gauge = _gauge;
 }
 
 
-void OLEDManger::drawInfopage() {
+void DIsplayManger::drawInfopage() {
   char *Info_char[5] = {"", "", "", "", ""};
   Info_char[0] = (char*)infoData.infoSsid.c_str();
   Info_char[1] = (char*)infoData.infoId.c_str();
@@ -178,22 +178,22 @@ void OLEDManger::drawInfopage() {
   //  u8g.setPrintPos(35, 59);
   //  u8g.print(Info_char[4]);
 }
-void OLEDManger::setInfossid(String strSsid) {
+void DIsplayManger::setInfossid(String strSsid) {
   infoData.infoSsid = strSsid;
 }
-void OLEDManger::setInfoId(String infoId) {
+void DIsplayManger::setInfoId(String infoId) {
   infoData.infoId = infoId;
 }
-void OLEDManger::setInfopw(String strPW) {
+void DIsplayManger::setInfopw(String strPW) {
   infoData.infoPw = strPW;
 }
-void OLEDManger::setInfomac(String strMac) {
+void DIsplayManger::setInfomac(String strMac) {
   infoData.infoMac = strMac;
 }
 
 
 
-void OLEDManger::drawSettinginfopage() {
+void DIsplayManger::drawSettinginfopage() {
   char *settinginfoData_char[5] = {"", "", "", "", ""};
   settinginfoData_char[0] = (char*)settinginfoData.serverIp .c_str();
   settinginfoData_char[1] = (char*)settinginfoData.userId.c_str();
@@ -217,21 +217,21 @@ void OLEDManger::drawSettinginfopage() {
   //  u8g.setPrintPos(35, 59);
   //  u8g.print(settinginfoData_char[4]);
 }
-void OLEDManger::setServerip(String S_ip) {
+void DIsplayManger::setServerip(String S_ip) {
   settinginfoData.serverIp = S_ip;
 }
-void OLEDManger::setUserid(String U_id) {
+void DIsplayManger::setUserid(String U_id) {
   settinginfoData.userId = U_id;
 }
-void OLEDManger::setUsernum(String U_num) {
+void DIsplayManger::setUsernum(String U_num) {
   settinginfoData.userNum = U_num;
 }
-void OLEDManger::setRadnum(String R_num) {
+void DIsplayManger::setRadnum(String R_num) {
   settinginfoData.radNum = R_num;
 }
 
 
-void OLEDManger::drawMainpage() {
+void DIsplayManger::drawMainpage() {
   u8g.drawBitmapP(12, mainPoint, 1, 7, BITMAP_tri);
   u8g.drawStr(20, 20, "Rad Use");
   u8g.drawStr(20, 30, "Rad Info");
@@ -239,7 +239,7 @@ void OLEDManger::drawMainpage() {
   u8g.drawBitmapP(0, 53, 16, 1, BITMAP_bar);
   u8g.drawStr(0, 56, "Main >");
 }
-void OLEDManger::drawSubMenupage_1() {
+void DIsplayManger::drawSubMenupage_1() {
   u8g.drawBitmapP(12, mainPoint, 1, 7, BITMAP_tri);
   if (subpoint == 1) {
     u8g.setPrintPos(20, 20);
@@ -273,14 +273,14 @@ void OLEDManger::drawSubMenupage_1() {
 
   }
 }
-void OLEDManger::drawSubMenupage_2() {
+void DIsplayManger::drawSubMenupage_2() {
   u8g.drawBitmapP(12, mainPoint, 1, 7, BITMAP_tri);
   u8g.drawStr(20, 20, "NewWork Info");
   u8g.drawStr(20, 30, "Settting Info");
   u8g.drawBitmapP(0, 53, 16, 1, BITMAP_bar);
   u8g.drawStr(0, 56, "Main > Info");
 }
-void OLEDManger::drawBaudratepage() {
+void DIsplayManger::drawBaudratepage() {
   u8g.drawBitmapP(12, mainPoint, 1, 7, BITMAP_tri);
   u8g.drawStr(20, 20, "9600K");
   u8g.drawStr(20, 30, "38400K");
@@ -290,7 +290,7 @@ void OLEDManger::drawBaudratepage() {
 }
 
 
-void OLEDManger::drawConsolepage() {
+void DIsplayManger::drawConsolepage() {
   u8g.setFontPosTop();
   u8g.setFont(u8g_font_6x10);
   u8g.firstPage();
@@ -349,7 +349,7 @@ void OLEDManger::drawConsolepage() {
     }
   } while (u8g.nextPage());
 }
-void OLEDManger::setConsolMSG(String valuestr) {
+void DIsplayManger::setConsolMSG(String valuestr) {
   lineupnum = 0;
   short startindex = 0;
   short strsize = linesize - 1;

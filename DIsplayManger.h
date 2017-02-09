@@ -1,10 +1,10 @@
-#ifndef OLEDManger_h
-#define OLEDManger_h
+#ifndef DIsplayManger_h
+#define DIsplayManger_h
 #include <Arduino.h>
 
 
 
-class OLEDManger
+class DIsplayManger
 {
   private:
     int mLineNumber;
@@ -98,7 +98,7 @@ class OLEDManger
     void drawConsolepage();
 
   public:
-    OLEDManger();
+    DIsplayManger();
     // 기능 : subpoint 리턴
     //
     // @Param : x

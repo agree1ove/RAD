@@ -1,6 +1,6 @@
 #include <FreeRTOS_AVR.h>
 #include <basic_io_avr.h>
-#include "OLEDManger.h"
+#include "DIsplayManger.h"
 #include "CommunicationManager.h"
 
 /* ******************************************
@@ -20,7 +20,7 @@ HardwareSerial* serial_esp8266 = &Serial2;  // RXTX2
 //CommunicationManager comm;
 //DisplayManager display;
 unsigned long count = 0;
- OLEDManger *LEDManger;
+DIsplayManger *LEDManger;
 
 
 /* ******************************************
@@ -133,7 +133,7 @@ void t_webserver(){
 void setup(void) {
 
   // 0) 초기화
-   LEDManger = new OLEDManger();
+   LEDManger = new DIsplayManger();
    LEDManger->logoPage();
    LEDManger->logoPage();
    delay(1000);
