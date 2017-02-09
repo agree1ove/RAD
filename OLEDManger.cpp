@@ -1,5 +1,6 @@
 #include "OLEDManger.h"
 #include "OLED_bitmap.h"
+#include <U8glib.h>
 U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_DEV_0 | U8G_I2C_OPT_NO_ACK | U8G_I2C_OPT_FAST);
 
 OLEDManger::OLEDManger()
@@ -40,7 +41,7 @@ int OLEDManger::getCirclecheck() {
   return circleCheck;
 }
 void OLEDManger::setShowline(int sline) {
-  showline=sline;
+  showline = sline;
 }
 int OLEDManger::getShowline() {
   return showline;
@@ -49,7 +50,7 @@ int OLEDManger::getEndline() {
   return endline;
 }
 void OLEDManger::setLineupnum(int upnum) {
-  lineupnum=upnum;
+  lineupnum = upnum;
 }
 int OLEDManger::getLineupnum() {
   return lineupnum;
@@ -240,7 +241,7 @@ void OLEDManger::drawMainpage() {
 }
 void OLEDManger::drawSubMenupage_1() {
   u8g.drawBitmapP(12, mainPoint, 1, 7, BITMAP_tri);
-  if (subpoint==1) {
+  if (subpoint == 1) {
     u8g.setPrintPos(20, 20);
     u8g.print("...");
     u8g.setPrintPos(20, 30);
@@ -250,7 +251,7 @@ void OLEDManger::drawSubMenupage_1() {
     u8g.drawBitmapP(0, 53, 16, 1, BITMAP_bar);
     u8g.drawStr(0, 56, "Main > Use");
   }
-   else if (subpoint==2) {
+  else if (subpoint == 2) {
     u8g.setPrintPos(20, 20);
     u8g.print("...");
     u8g.setPrintPos(20, 30);
@@ -260,7 +261,7 @@ void OLEDManger::drawSubMenupage_1() {
     u8g.drawBitmapP(0, 53, 16, 1, BITMAP_bar);
     u8g.drawStr(0, 56, "Main > Use");
   }
-   else if (subpoint==3) {
+  else if (subpoint == 3) {
     u8g.setPrintPos(20, 20);
     u8g.print("...");
     u8g.setPrintPos(20, 30);
