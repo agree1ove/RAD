@@ -1,7 +1,6 @@
 #include <FreeRTOS_AVR.h>
 #include <basic_io_avr.h>
 #include "DIsplayManger.h"
-#include "CommunicationManager.h"
 #include <U8glib.h>
 U8GLIB_SSD1306_128X64 u81g(U8G_I2C_OPT_DEV_0 | U8G_I2C_OPT_NO_ACK | U8G_I2C_OPT_FAST);
 /* ******************************************
@@ -11,7 +10,7 @@ U8GLIB_SSD1306_128X64 u81g(U8G_I2C_OPT_DEV_0 | U8G_I2C_OPT_NO_ACK | U8G_I2C_OPT_
 #define BUTTON_B (3)
 #define BUTTON_C (4)
 #define BUTTON_D (5)
-#define BUTTON_DELAY (500)
+#define BUTTON_DELAY (200)
 
 
 
@@ -69,7 +68,8 @@ void t_button_listener() {
   for (;;) {
     if (digitalRead(BUTTON_A) == LOW) {
       xSemaphoreTake(semphr, portMAX_DELAY); //세마포어 대기
-      serial_monitor->println("BUTTON A");
+      serial_monitor->print("BUTTON A :: ");
+      serial_monitor->println(freeHeap());
       downbtn();
       xSemaphoreGive(semphr);     //세마포어 해제
       vTaskResume(th_display);    // *디스플레이 테스크 재개*
@@ -161,35 +161,11 @@ void setup(void) {
   pinMode(BUTTON_B, INPUT);
   pinMode(BUTTON_C, INPUT);
   pinMode(BUTTON_D, INPUT);
-
-  // 1) UI 쓰레드 (우선순위:1)
-  // 버튼입력 감지
-  // 버튼입력에 따른 화면 그리기
-  // 화면구성에 필요한 데이터 가져오기
-  // ※ 리부팅 선택시, 리부팅함수 직접실행
-  // ※ 통신속도변경 선택시, 통신속더변경함수 직접실행
-  // ※ 승인요청 선택시, 승인요청함수 직접실행 + 승인번호보여주기
-
-
-  // 2) 통신 쓰레드 (우선순위:1)
-  // 콘솔화면에서만 동작? 백그라운드 동작?
-  // 송수신 병렬처리? 순차처리?
-  // 버퍼초과하면..?
-
-
-  // 3) 웹서버 쓰레드
-  // 서버모드화면에서만 동작
-  // 서버모드 선택시,
-
-
-  // 4) 로깅 쓰레드
-  // ...
-
-
+  
   // 등록
   semphr = xSemaphoreCreateMutex();
-  xTaskCreate(t_button_listener, "t_button_listener", 100, NULL, 1, NULL);
-  xTaskCreate(t_display, "t_display", 300, NULL, 1, &th_display);
+  xTaskCreate(t_button_listener, "t_button_listener", 200, NULL, 1, NULL);
+  xTaskCreate(t_display, "t_display", 450, NULL, 1, &th_display);
   xTaskCreate(t_display_renew, "t_display_renew", 100, NULL, 1, &th_display_renew);
   xTaskCreate(t_webserver, "t_webserver", 100, NULL, 1, &th_webserver);
 
