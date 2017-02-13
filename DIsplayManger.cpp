@@ -262,7 +262,6 @@ void DIsplayManger::drawSettinginfopage() {
       }
       checkPage();
       checkPage();
-      delay(300);
       break;
     case 5:
       setMainpoint(getMainpoint() + 10);
@@ -313,7 +312,6 @@ void DIsplayManger::drawSettinginfopage() {
       }
       checkPage();
       checkPage();
-      delay(300);
       break;
     case 5:
       setMainpoint(getMainpoint() - 10);
