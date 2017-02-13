@@ -52,7 +52,6 @@ class DIsplayManger
     // @Param : 없음
     // @Return :
     void clearPage();
-
     // 기능 : 인자값을 받아서 상단 알림창 Draw 및 전체 화면이동 해주는 함수
     //
     // @Param :
@@ -254,6 +253,10 @@ class DIsplayManger
     // @Param :콘솔창정보
     // @Return :
     void setConsolMSG(String);
+    // 기능 : 버튼 입력처리 
+    //ss
+    // @Param : 누른 버튼 값
+    void buttonControl(int);
 };
 #endif
 

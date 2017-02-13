@@ -217,6 +217,204 @@ void DIsplayManger::drawSettinginfopage() {
   //  u8g.setPrintPos(35, 59);
   //  u8g.print(settinginfoData_char[4]);
 }
+ void DIsplayManger:: buttonControl(int btnum){
+  if(btnum==2){
+    switch ( getPagenum()) {
+    case 1:
+      setMainpoint(getMainpoint() + 10);
+      delay(300);
+      if (getMainpoint() > 40) {
+        setMainpoint(20);
+      }
+      break;
+    case 2:
+      setMainpoint(getMainpoint() + 10);
+      delay(300);
+      if (getMainpoint() > 40) {
+        setMainpoint(20);
+        if (getSubpoint() < 3) {
+          setSubpoint(getSubpoint() + 1);
+        }
+        else {
+          setSubpoint(1);
+        }
+      }
+      break;
+    case 3:
+      setMainpoint(getMainpoint() + 10);
+      delay(300);
+      if (getMainpoint() > 40) {
+        setMainpoint(20);
+      }
+      break;
+    case 4:
+      if (getCirclecheck() == 1 && getShowline() == 0) {
+        setShowline(getNumberOflines() - 1);
+        setLineupnum(getLineupnum() + 1);
+      }
+      else if ((getCirclecheck()  == 0) && ( getShowline() < 5)) {
+      }
+      else if ((getCirclecheck() == 1) && ( (getShowline() ) == (getEndline() + 4))) {
+      }
+      else {
+        setShowline(getShowline() - 1);
+        setLineupnum(getLineupnum() + 1);
+      }
+      checkPage();
+      checkPage();
+      delay(300);
+      break;
+    case 5:
+      setMainpoint(getMainpoint() + 10);
+      delay(300);
+      if (getMainpoint() > 40) {
+        setMainpoint(20);
+      }
+      break;
+  }
+  }
+  else if(btnum==1){
+      switch (getPagenum()) {
+    case 1:
+      setMainpoint(getMainpoint() - 10);
+      delay(300);
+      if (getMainpoint() < 20) {
+        setMainpoint(40);
+      }
+      break;
+    case 2:
+      setMainpoint(getMainpoint() - 10);
+      delay(300);
+      if (getMainpoint() < 20) {
+        setMainpoint(40);
+        if (getSubpoint() > 1) {
+          setSubpoint(getSubpoint() - 1);
+        }
+        else {
+          setSubpoint(3);
+        }
+      }
+      break;
+    case 3:
+      setMainpoint(getMainpoint() - 10);
+      delay(300);
+      if (getMainpoint() < 20) {
+        setMainpoint(40);
+      }
+      break;
+    case 4:
+      if ( getLineupnum() > 0) {
+        setShowline((getShowline()) + 1);
+        setLineupnum(getLineupnum() - 1);
+
+        if (getShowline() == getNumberOflines()) {
+          setShowline(0);
+        }
+      }
+      checkPage();
+      checkPage();
+      delay(300);
+      break;
+    case 5:
+      setMainpoint(getMainpoint() - 10);
+      delay(300);
+      if (getMainpoint() < 20) {
+        setMainpoint(40);
+      }
+      break;
+  }
+  }
+  else if(btnum==3){
+      switch (getPagenum()) {
+    case 1:
+      switch (getMainpoint()) {
+        case 20:
+          setPagenum(2);
+          setSubpoint(1);
+
+          break;
+        case 30:
+          setPagenum(5);
+
+          break;
+        case 40:
+          setPagenum(4);
+
+          break;
+      }
+      break;
+    case 2:
+      switch (getMainpoint()) {
+        case 20:
+          setPagenum(1);
+          break;
+        case 30:
+          if (getSubpoint() == 1) { //서버모드
+            setPagenum(1);
+          }
+          else if (getSubpoint() == 2) { //3g/4g
+            setPagenum(1);
+          }
+          else if (getSubpoint() == 3) { //rad승인요청
+            setPagenum(7);
+          }
+          break;
+        case 40:
+          if (getSubpoint() == 1) { //클라이언트 모드
+            setPagenum(1);
+          }
+          else if (getSubpoint() == 2) { //rad 통신 속도 변경
+            setPagenum(3);
+          }
+          else if (getSubpoint() == 3) { //rad rebooting
+            setPagenum(1);
+          }
+          break;
+      }
+      break;
+    case 3:
+      switch (getMainpoint()) {
+        case 20:
+          //통신속도 9600k
+          setPagenum(1);
+          break;
+        case 30:
+          //통신속도 38400k
+          setPagenum(1);
+          break;
+        case 40:
+          //통신속도 152000k
+          setPagenum(1);
+          break;
+      }
+      break;
+    case 4:
+      setPagenum(1);
+      break;
+    case 5:
+      switch (getMainpoint()) {
+        case 20:
+          setPagenum(1);
+          break;
+        case 30:
+          setPagenum(6);
+          break;
+        case 40:
+          setPagenum(7);
+          break;
+      }
+      break;
+    case 6:
+      setPagenum(5);
+      break;
+    case 7:
+      setPagenum(5);
+      break;
+  }
+  setMainpoint(20);
+  }
+  
+ }
 void DIsplayManger::setServerip(String S_ip) {
   settinginfoData.serverIp = S_ip;
 }
@@ -350,6 +548,7 @@ void DIsplayManger::drawConsolepage() {
     }
   } while (u8g.nextPage());
 }
+
 void DIsplayManger::setConsolMSG(String valuestr) {
   lineupnum = 0;
   short startindex = 0;

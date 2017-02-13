@@ -1,4 +1,4 @@
-`#include <FreeRTOS_AVR.h>
+#include <FreeRTOS_AVR.h>
 #include <basic_io_avr.h>
 #include "DIsplayManger.h"
 #include <U8glib.h>
@@ -70,7 +70,7 @@ void t_button_listener() {
       xSemaphoreTake(semphr, portMAX_DELAY); //세마포어 대기
       serial_monitor->print("BUTTON A :: ");
       serial_monitor->println(freeHeap());
-      downbtn();
+        DisplayManger->buttonControl(1);
       xSemaphoreGive(semphr);     //세마포어 해제
       vTaskResume(th_display);    // *디스플레이 테스크 재개*
       vTaskDelay(BUTTON_DELAY); //버튼구분동작 딜레이
@@ -79,7 +79,7 @@ void t_button_listener() {
     else if (digitalRead(BUTTON_B) == LOW) {
       xSemaphoreTake(semphr, portMAX_DELAY); //세마포어 대기
       serial_monitor->println("BUTTON B");
-      upbtn();
+       DisplayManger-> buttonControl(2);
       xSemaphoreGive(semphr);     //세마포어 해제
       vTaskResume(th_display);    // *디스플레이 테스크 재개*
       vTaskDelay(BUTTON_DELAY); //버튼구분동작 딜레이
@@ -88,7 +88,7 @@ void t_button_listener() {
     else if (digitalRead(BUTTON_C) == LOW) {
       xSemaphoreTake(semphr, portMAX_DELAY);
       serial_monitor->println("BUTTON C");
-      clickbtn();
+       DisplayManger-> buttonControl(3);
       xSemaphoreGive(semphr);
       vTaskResume(th_display);    // *디스플레이 테스크 재개*
       vTaskDelay(BUTTON_DELAY);
@@ -180,203 +180,4 @@ void setup(void) {
 }
 
 void loop(void) {}
-
-/* ******************************************
-   Button actions
- * ******************************************/
-void upbtn() {
-  switch (DisplayManger->getPagenum()) {
-    case 1:
-      DisplayManger->setMainpoint(DisplayManger->getMainpoint() + 10);
-      delay(300);
-      if (DisplayManger->getMainpoint() > 40) {
-        DisplayManger->setMainpoint(20);
-      }
-      break;
-    case 2:
-      DisplayManger->setMainpoint(DisplayManger->getMainpoint() + 10);
-      delay(300);
-      if (DisplayManger->getMainpoint() > 40) {
-        DisplayManger->setMainpoint(20);
-        if (DisplayManger->getSubpoint() < 3) {
-          DisplayManger->setSubpoint(DisplayManger->getSubpoint() + 1);
-        }
-        else {
-          DisplayManger->setSubpoint(1);
-        }
-      }
-      break;
-    case 3:
-      DisplayManger->setMainpoint(DisplayManger->getMainpoint() + 10);
-      delay(300);
-      if (DisplayManger->getMainpoint() > 40) {
-        DisplayManger->setMainpoint(20);
-      }
-      break;
-    case 4:
-      if (DisplayManger->getCirclecheck() == 1 && DisplayManger->getShowline() == 0) {
-        DisplayManger->setShowline(DisplayManger->getNumberOflines() - 1);
-        DisplayManger->setLineupnum(DisplayManger->getLineupnum() + 1);
-      }
-      else if ((DisplayManger->getCirclecheck()  == 0) && ( DisplayManger->getShowline() < 5)) {
-      }
-      else if ((DisplayManger->getCirclecheck() == 1) && ( (DisplayManger->getShowline() ) == (DisplayManger->getEndline() + 4))) {
-      }
-      else {
-        DisplayManger->setShowline(DisplayManger->getShowline() - 1);
-        DisplayManger->setLineupnum(DisplayManger->getLineupnum() + 1);
-      }
-      DisplayManger->checkPage();
-      DisplayManger->checkPage();
-      delay(300);
-      break;
-    case 5:
-      DisplayManger->setMainpoint(DisplayManger->getMainpoint() + 10);
-      delay(300);
-      if (DisplayManger->getMainpoint() > 40) {
-        DisplayManger->setMainpoint(20);
-      }
-      break;
-  }
-}
-void downbtn() {
-  switch (DisplayManger->getPagenum()) {
-    case 1:
-      DisplayManger->setMainpoint(DisplayManger->getMainpoint() - 10);
-      delay(300);
-      if (DisplayManger->getMainpoint() < 20) {
-        DisplayManger->setMainpoint(40);
-      }
-      break;
-    case 2:
-      DisplayManger->setMainpoint(DisplayManger->getMainpoint() - 10);
-      delay(300);
-      if (DisplayManger->getMainpoint() < 20) {
-        DisplayManger->setMainpoint(40);
-        if (DisplayManger->getSubpoint() > 1) {
-          DisplayManger->setSubpoint(DisplayManger->getSubpoint() - 1);
-        }
-        else {
-          DisplayManger->setSubpoint(3);
-        }
-      }
-      break;
-    case 3:
-      DisplayManger->setMainpoint(DisplayManger->getMainpoint() - 10);
-      delay(300);
-      if (DisplayManger->getMainpoint() < 20) {
-        DisplayManger->setMainpoint(40);
-      }
-      break;
-    case 4:
-      if ( DisplayManger->getLineupnum() > 0) {
-        DisplayManger->setShowline((DisplayManger->getShowline()) + 1);
-        DisplayManger->setLineupnum(DisplayManger->getLineupnum() - 1);
-
-        if (DisplayManger->getShowline() == DisplayManger->getNumberOflines()) {
-          DisplayManger->setShowline(0);
-        }
-      }
-      DisplayManger->checkPage();
-      DisplayManger->checkPage();
-      delay(300);
-      break;
-    case 5:
-      DisplayManger->setMainpoint(DisplayManger->getMainpoint() - 10);
-      delay(300);
-      if (DisplayManger->getMainpoint() < 20) {
-        DisplayManger->setMainpoint(40);
-      }
-      break;
-  }
-}
-void clickbtn() {
-  switch (DisplayManger->getPagenum()) {
-    case 1:
-      switch (DisplayManger->getMainpoint()) {
-        case 20:
-          DisplayManger->setPagenum(2);
-          DisplayManger->setSubpoint(1);
-
-          break;
-        case 30:
-          DisplayManger->setPagenum(5);
-
-          break;
-        case 40:
-          DisplayManger->setPagenum(4);
-
-          break;
-      }
-      break;
-    case 2:
-      switch (DisplayManger->getMainpoint()) {
-        case 20:
-          DisplayManger->setPagenum(1);
-          break;
-        case 30:
-          if (DisplayManger->getSubpoint() == 1) { //서버모드
-            DisplayManger->setPagenum(1);
-          }
-          else if (DisplayManger->getSubpoint() == 2) { //3g/4g
-            DisplayManger->setPagenum(1);
-          }
-          else if (DisplayManger->getSubpoint() == 3) { //rad승인요청
-            DisplayManger->setPagenum(7);
-          }
-          break;
-        case 40:
-          if (DisplayManger->getSubpoint() == 1) { //클라이언트 모드
-            DisplayManger->setPagenum(1);
-          }
-          else if (DisplayManger->getSubpoint() == 2) { //rad 통신 속도 변경
-            DisplayManger->setPagenum(3);
-          }
-          else if (DisplayManger->getSubpoint() == 3) { //rad rebooting
-            DisplayManger->setPagenum(1);
-          }
-          break;
-      }
-      break;
-    case 3:
-      switch (DisplayManger->getMainpoint()) {
-        case 20:
-          //통신속도 9600k
-          DisplayManger->setPagenum(1);
-          break;
-        case 30:
-          //통신속도 38400k
-          DisplayManger->setPagenum(1);
-          break;
-        case 40:
-          //통신속도 152000k
-          DisplayManger->setPagenum(1);
-          break;
-      }
-      break;
-    case 4:
-      DisplayManger->setPagenum(1);
-      break;
-    case 5:
-      switch (DisplayManger->getMainpoint()) {
-        case 20:
-          DisplayManger->setPagenum(1);
-          break;
-        case 30:
-          DisplayManger->setPagenum(6);
-          break;
-        case 40:
-          DisplayManger->setPagenum(7);
-          break;
-      }
-      break;
-    case 6:
-      DisplayManger->setPagenum(5);
-      break;
-    case 7:
-      DisplayManger->setPagenum(5);
-      break;
-  }
-  DisplayManger->setMainpoint(20);
-}
 
